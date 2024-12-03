@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 
 using Infrastructure.Data;
 
@@ -13,8 +14,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _repo;
-        public ProductsController(IProductRepository repo)
+        private readonly IGenericRepository<Product> _repo;
+        public ProductsController(IGenericRepository<Product> repo)
         {
             _repo = repo;
         }
@@ -22,13 +23,17 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(string? brand, string? type, string? sort)
         {
-            return Ok(await _repo.GetProductsAsync(brand, type, sort));
+            var spec = new ProductSpecification(brand, type, sort);
+
+            var products = await _repo.ListAsync(spec);
+
+            return Ok(products);
         }
 
         [HttpGet("{id:int}")]  //api/product/2
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _repo.GetProductByIdAsync(id);
+            var product = await _repo.GetByIdAsync(id);
 
             if (product == null) return NotFound();
 
@@ -38,9 +43,9 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
-            _repo.AddProduct(product);
+            _repo.Add(product);
 
-            if (await _repo.SaveChangesAsync()) return BadRequest("Problem creating product");
+            if (await _repo.SaveAllAsync() == false) return BadRequest("Problem creating product");
 
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
@@ -48,11 +53,11 @@ namespace WebAPI.Controllers
         [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateProduct(int id, Product product)
         {
-            if (product.Id != id  || !_repo.ProductExists(id)) return BadRequest("Cannot update this product");
+            if (product.Id != id  || !_repo.Exists(id)) return BadRequest("Cannot update this product");
 
-            _repo.UpdateProduct(product);
+            _repo.Update(product);
 
-            if (await _repo.SaveChangesAsync()) return BadRequest("Problem updating the product");
+            if (await _repo.SaveAllAsync() == false) return BadRequest("Problem updating the product");
 
             return NoContent();
 
@@ -61,13 +66,13 @@ namespace WebAPI.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
-            var product = await _repo.GetProductByIdAsync(id);
+            var product = await _repo.GetByIdAsync(id);
 
             if (product == null) return NotFound();
 
-            _repo.DeleteProduct(product);
+            _repo.Remove(product);
 
-            if (await _repo.SaveChangesAsync()) return BadRequest("Problem deleting the product");
+            if (await _repo.SaveAllAsync() == false) return BadRequest("Problem deleting the product");
 
             return NoContent();
         }
@@ -75,13 +80,15 @@ namespace WebAPI.Controllers
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
         {
-            return Ok(await _repo.GetBrandsAsync());
+            var spec = new BrandListSpecification();
+            return Ok(await _repo.ListAsync(spec));
         }
 
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
         {
-            return Ok(await _repo.GetTypesAsync());
+            var spec = new TypeListSpecification();
+            return Ok(await _repo.ListAsync(spec));
         }
 
     }
