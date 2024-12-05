@@ -3,11 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{F28112CE-3BD1-4535-A4C9-90FF38A4FCC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{F28112CE-3BD1-4535-A4C9-90FF38A4FCC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{8F979E2B-2B47-4C7D-BAEB-E16441DA876C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{8F979E2B-2B47-4C7D-BAEB-E16441DA876C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{BE1D7BAE-B795-46F2-BE64-27800FB821AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{BE1D7BAE-B795-46F2-BE64-27800FB821AD}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "client", "client\", "{E3EDA0EB-AB69-40A5-907F-EC218843FFA1}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50500"
+		Debug.AspNetCompiler.PhysicalPath = "client\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50500\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50500"
+		Release.AspNetCompiler.PhysicalPath = "client\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50500\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50500"
+		SlnRelativePath = "client\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +48,10 @@ Global
 		{BE1D7BAE-B795-46F2-BE64-27800FB821AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE1D7BAE-B795-46F2-BE64-27800FB821AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE1D7BAE-B795-46F2-BE64-27800FB821AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3EDA0EB-AB69-40A5-907F-EC218843FFA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3EDA0EB-AB69-40A5-907F-EC218843FFA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3EDA0EB-AB69-40A5-907F-EC218843FFA1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3EDA0EB-AB69-40A5-907F-EC218843FFA1}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
