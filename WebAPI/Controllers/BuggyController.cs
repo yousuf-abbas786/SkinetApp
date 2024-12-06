@@ -12,7 +12,7 @@ namespace WebAPI.Controllers
     public class BuggyController : BaseApiController
     {
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("unauthorized")]
         public IActionResult GetUnAuthorized()
         {
